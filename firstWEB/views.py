@@ -1,12 +1,12 @@
 from datetime import datetime
-from urllib import request
+
 import json
 
 from django.forms import model_to_dict
 from django.shortcuts import render
 from django.http.response import JsonResponse
 import pymysql
-import pandas as pd
+
 from firstWEB import models
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
