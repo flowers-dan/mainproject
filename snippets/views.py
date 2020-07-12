@@ -1,3 +1,7 @@
+import json
+import logging
+
+
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -18,12 +22,15 @@ def snippet_list(request):
         return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'POST':
-        data = JSONParser().parse(request)
+        data = json.loads(request.body)
         serializer = SnippetSerializer(data=data)
+        logger = logging.getLogger("django")
+        logger.info(serializer)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
 
 
 @csrf_exempt
